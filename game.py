@@ -3,26 +3,20 @@ import random
 
 
 class Game:
-
     x = [[0 for c in range(4)] for r in range(4)]
-
     c_score = 0
-
     copy_board = []
 
-    def __init__(self):
-        self.x = self.new_board()
-        self.c_score = self.c_score
-        self.copy_board = self.copy_board
-
-    def print_inline(self, s):
-        print(s, end='')
+    def __init__(self, board, c_score):
+        if board is None:
+            self.x = self.new_board()
+            self.c_score = c_score
+        else:
+            self.x = board
+            self.c_score = c_score
 
     def count_zeroes(self):
         return sum([sum([1 for c in r if c == 0]) for r in self.x])
-
-    def max_value(self):
-        return max([max(r) for r in self.x])
 
     def add_number(self):
         list_of_num = [2, 2, 2, 2, 4]
@@ -51,9 +45,12 @@ class Game:
         for i in range(0, 4):
             for j in range(0, 4):
                 k = i
+
                 while k < 4 and self.copy_board[k][j] == 0: k += 1
                 if k != i and k < 4:
+
                     self.copy_board[i][j], self.copy_board[k][j] = self.copy_board[k][j], 0
+
                     changed = True
         return changed
 
